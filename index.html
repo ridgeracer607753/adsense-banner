@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdSense Test Banner - 고정 크기</title>
+    <title>AdSense Test Banner - 완전 테스트</title>
     <style>
         body { 
             margin: 0; 
@@ -44,18 +44,12 @@
             border-radius: 5px;
             margin: 10px 0;
         }
-        /* AdSense 광고 고정 크기 설정 */
-        .adsbygoogle {
-            width: 320px !important;
-            height: 250px !important;
-            display: block !important;
-        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1> TenNinety 앱 광고 테스트</h1>
-        <p>고정 크기 테스트 광고</p>
+        <p>완전한 테스트 광고</p>
     </div>
     
     <div class="status">
@@ -67,7 +61,7 @@
         <div class="test-ad" id="dummy-ad">
             <h3>🧪 테스트 광고</h3>
             <p>320 x 250</p>
-            <p>고정 크기</p>
+            <p>로딩 중...</p>
         </div>
         
         <!-- Google 공식 테스트 광고 -->
@@ -84,18 +78,13 @@
     </div>
     
     <script>
-        // 광고 로딩 상태 추적
-        let scriptLoaded = false;
-        let adPushed = false;
-        
         // AdSense 스크립트 로딩
         const script = document.createElement('script');
         script.async = true;
         script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
         script.onload = function() {
             console.log('✅ AdSense 스크립트 로딩 성공');
-            scriptLoaded = true;
-            pushAd();
+            loadAd();
         };
         script.onerror = function() {
             console.log('❌ AdSense 스크립트 로딩 실패');
@@ -103,57 +92,51 @@
         };
         document.head.appendChild(script);
         
-        // 광고 푸시
-        function pushAd() {
-            if (scriptLoaded && !adPushed) {
-                try {
-                    // 광고 컨테이너 크기 확인
-                    const adContainer = document.querySelector('.banner-container');
-                    const adElement = document.querySelector('.adsbygoogle');
-                    
-                    console.log('📏 컨테이너 크기:', adContainer.offsetWidth, 'x', adContainer.offsetHeight);
-                    console.log('📏 광고 요소 크기:', adElement.offsetWidth, 'x', adElement.offsetHeight);
-                    
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    adPushed = true;
-                    console.log('✅ 광고 푸시 성공');
-                    
-                    // 3초 후 광고 상태 확인
-                    setTimeout(checkAdStatus, 3000);
-                } catch (error) {
-                    console.log('❌ 광고 푸시 실패:', error);
-                    document.getElementById('status').innerHTML = '❌ 광고 푸시 실패<br>' + error.message;
-                }
+        // 광고 로드
+        function loadAd() {
+            try {
+                // 광고 요소 확인
+                const adElement = document.querySelector('.adsbygoogle');
+                console.log('📏 광고 요소 크기:', adElement.offsetWidth, 'x', adElement.offsetHeight);
+                
+                // AdSense 광고 푸시
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                console.log('✅ AdSense 광고 푸시 성공');
+                
+                // 5초 후 광고 상태 확인
+                setTimeout(checkAdStatus, 5000);
+            } catch (error) {
+                console.log('❌ 광고 로드 실패:', error);
+                document.getElementById('status').innerHTML = '❌ 광고 로드 실패: ' + error.message;
             }
         }
         
         // 광고 상태 확인
         function checkAdStatus() {
-            const adElements = document.querySelectorAll('.adsbygoogle');
+            const adElement = document.querySelector('.adsbygoogle');
             const status = document.getElementById('status');
             const dummyAd = document.getElementById('dummy-ad');
             
-            if (adElements.length > 0) {
-                const adElement = adElements[0];
-                const computedStyle = window.getComputedStyle(adElement);
-                
-                console.log('🔍 광고 요소 상태:', {
-                    display: computedStyle.display,
-                    width: adElement.offsetWidth,
-                    height: adElement.offsetHeight,
-                    visibility: computedStyle.visibility
-                });
-                
-                if (adElement.offsetWidth > 0 && adElement.offsetHeight > 0) {
-                    status.innerHTML = '✅ AdSense 광고 로딩 성공!';
+            console.log('🔍 광고 상태 확인:', {
+                width: adElement.offsetWidth,
+                height: adElement.offsetHeight,
+                display: window.getComputedStyle(adElement).display,
+                backgroundColor: window.getComputedStyle(adElement).backgroundColor
+            });
+            
+            if (adElement.offsetWidth > 0 && adElement.offsetHeight > 0) {
+                // 광고가 로드되었지만 하얀색인 경우
+                const bgColor = window.getComputedStyle(adElement).backgroundColor;
+                if (bgColor === 'rgba(0, 0, 0, 0)' || bgColor === 'transparent') {
+                    status.innerHTML = '⚠️ 광고 로드됨 (하얀색)<br>테스트 광고 콘텐츠 대기 중...';
+                    status.style.background = 'rgba(255,165,0,0.2)';
+                } else {
+                    status.innerHTML = '✅ AdSense 광고 완전 로드!';
                     status.style.background = 'rgba(0,255,0,0.2)';
                     dummyAd.style.display = 'none';
-                } else {
-                    status.innerHTML = '⚠️ AdSense 광고 크기 문제<br>너비: ' + adElement.offsetWidth + ', 높이: ' + adElement.offsetHeight;
-                    status.style.background = 'rgba(255,165,0,0.2)';
                 }
             } else {
-                status.innerHTML = '❌ 광고 요소를 찾을 수 없음';
+                status.innerHTML = '❌ 광고 크기 문제';
                 status.style.background = 'rgba(255,0,0,0.2)';
             }
         }
@@ -161,7 +144,6 @@
         // 페이지 로딩 완료 시
         window.addEventListener('load', function() {
             console.log(' 페이지 로딩 완료');
-            console.log('📏 페이지 크기:', window.innerWidth, 'x', window.innerHeight);
         });
     </script>
 </body>
