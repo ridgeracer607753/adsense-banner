@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdSense Test Banner - 대체 테스트</title>
+    <title>AdSense Test Banner - 고정 크기</title>
     <style>
         body { 
             margin: 0; 
@@ -25,14 +25,17 @@
             margin: 20px auto;
             background: #f0f0f0;
             border: 2px dashed #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             border-radius: 10px;
+            position: relative;
+            overflow: hidden;
         }
         .test-ad {
             text-align: center;
             color: #666;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         .status {
             text-align: center;
@@ -41,12 +44,18 @@
             border-radius: 5px;
             margin: 10px 0;
         }
+        /* AdSense 광고 고정 크기 설정 */
+        .adsbygoogle {
+            width: 320px !important;
+            height: 250px !important;
+            display: block !important;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1> TenNinety 앱 광고 테스트</h1>
-        <p>대체 테스트 광고</p>
+        <p>고정 크기 테스트 광고</p>
     </div>
     
     <div class="status">
@@ -54,13 +63,20 @@
     </div>
     
     <div class="banner-container">
-        <!-- 대체 테스트 광고 -->
+        <!-- 더미 광고 (AdSense 로딩 전 표시) -->
+        <div class="test-ad" id="dummy-ad">
+            <h3>🧪 테스트 광고</h3>
+            <p>320 x 250</p>
+            <p>고정 크기</p>
+        </div>
+        
+        <!-- Google 공식 테스트 광고 -->
         <ins class="adsbygoogle"
-             style="display:block"
+             style="display:block; width:320px; height:250px;"
              data-ad-client="ca-pub-3940256099942544"
              data-ad-slot="6300977601"
              data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
+             data-full-width-responsive="false"></ins>
     </div>
     
     <div class="status" id="status">
@@ -83,7 +99,7 @@
         };
         script.onerror = function() {
             console.log('❌ AdSense 스크립트 로딩 실패');
-            document.getElementById('status').innerHTML = '❌ AdSense 스크립트 로딩 실패<br>네트워크 연결 확인 필요';
+            document.getElementById('status').innerHTML = '❌ AdSense 스크립트 로딩 실패';
         };
         document.head.appendChild(script);
         
@@ -91,6 +107,13 @@
         function pushAd() {
             if (scriptLoaded && !adPushed) {
                 try {
+                    // 광고 컨테이너 크기 확인
+                    const adContainer = document.querySelector('.banner-container');
+                    const adElement = document.querySelector('.adsbygoogle');
+                    
+                    console.log('📏 컨테이너 크기:', adContainer.offsetWidth, 'x', adContainer.offsetHeight);
+                    console.log('📏 광고 요소 크기:', adElement.offsetWidth, 'x', adElement.offsetHeight);
+                    
                     (adsbygoogle = window.adsbygoogle || []).push({});
                     adPushed = true;
                     console.log('✅ 광고 푸시 성공');
@@ -108,17 +131,26 @@
         function checkAdStatus() {
             const adElements = document.querySelectorAll('.adsbygoogle');
             const status = document.getElementById('status');
+            const dummyAd = document.getElementById('dummy-ad');
             
             if (adElements.length > 0) {
                 const adElement = adElements[0];
                 const computedStyle = window.getComputedStyle(adElement);
                 
-                if (computedStyle.display !== 'none' && adElement.offsetHeight > 0) {
+                console.log('🔍 광고 요소 상태:', {
+                    display: computedStyle.display,
+                    width: adElement.offsetWidth,
+                    height: adElement.offsetHeight,
+                    visibility: computedStyle.visibility
+                });
+                
+                if (adElement.offsetWidth > 0 && adElement.offsetHeight > 0) {
                     status.innerHTML = '✅ AdSense 광고 로딩 성공!';
                     status.style.background = 'rgba(0,255,0,0.2)';
+                    dummyAd.style.display = 'none';
                 } else {
-                    status.innerHTML = '⚠️ AdSense 광고 로딩 실패<br>광고 차단 또는 네트워크 문제';
-                    status.style.background = 'rgba(255,0,0,0.2)';
+                    status.innerHTML = '⚠️ AdSense 광고 크기 문제<br>너비: ' + adElement.offsetWidth + ', 높이: ' + adElement.offsetHeight;
+                    status.style.background = 'rgba(255,165,0,0.2)';
                 }
             } else {
                 status.innerHTML = '❌ 광고 요소를 찾을 수 없음';
@@ -129,9 +161,7 @@
         // 페이지 로딩 완료 시
         window.addEventListener('load', function() {
             console.log(' 페이지 로딩 완료');
-            if (!scriptLoaded) {
-                console.log('⏳ AdSense 스크립트 로딩 대기 중...');
-            }
+            console.log('📏 페이지 크기:', window.innerWidth, 'x', window.innerHeight);
         });
     </script>
 </body>
