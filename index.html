@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdSense Test Banner</title>
+    <title>AdSense Test Banner - 업데이트 확인</title>
     <style>
-        body { margin: 0; padding: 0; background: #f8f9fa; }
+        body { 
+            margin: 0; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            color: white;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
         .banner-container {
             width: 100%;
             height: 250px;
@@ -13,10 +26,34 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .status {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .timestamp {
+            font-size: 12px;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>�� TenNinety 앱 광고 테스트</h1>
+        <p>이 페이지가 보이면 GitHub Pages 업데이트 성공!</p>
+        <div class="timestamp">업데이트 시간: 2025년 1월 11일 오후</div>
+    </div>
+    
+    <div class="status">
+        ✅ 페이지 로딩 성공 - 웹뷰에서 광고가 표시됩니다
+    </div>
+    
     <div class="banner-container">
         <!-- Google 공식 테스트 광고 -->
         <ins class="adsbygoogle"
@@ -26,9 +63,20 @@
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
     </div>
+    
+    <div class="status">
+        �� 앱에서 "웹뷰 광고" 버튼을 눌러 테스트하세요
+    </div>
+    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
          (adsbygoogle = window.adsbygoogle || []).push({});
+         
+         // 페이지 로딩 완료 시 콘솔에 메시지 출력
+         window.addEventListener('load', function() {
+             console.log('�� TenNinety 광고 페이지 로딩 완료!');
+             console.log('�� 업데이트 시간: 2025년 1월 11일 오후');
+         });
     </script>
 </body>
 </html>
