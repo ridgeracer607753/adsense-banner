@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdSense Test Banner - 업데이트 확인</title>
+    <title>AdSense Test Banner - 간단 테스트</title>
     <style>
         body { 
             margin: 0; 
@@ -20,15 +20,19 @@
             border-radius: 10px;
         }
         .banner-container {
-            width: 100%;
+            width: 320px;
             height: 250px;
-            text-align: center;
+            margin: 20px auto;
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255,255,255,0.9);
             border-radius: 10px;
-            margin: 20px 0;
+        }
+        .test-ad {
+            text-align: center;
+            color: #666;
         }
         .status {
             text-align: center;
@@ -37,24 +41,26 @@
             border-radius: 5px;
             margin: 10px 0;
         }
-        .timestamp {
-            font-size: 12px;
-            opacity: 0.8;
-        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>�� TenNinety 앱 광고 테스트</h1>
-        <p>이 페이지가 보이면 GitHub Pages 업데이트 성공!</p>
-        <div class="timestamp">업데이트 시간: 2025년 1월 11일 오후</div>
+        <h1> TenNinety 앱 광고 테스트</h1>
+        <p>테스트 광고가 아래에 나타납니다</p>
     </div>
     
     <div class="status">
-        ✅ 페이지 로딩 성공 - 웹뷰에서 광고가 표시됩니다
+        �� 광고 로딩 중... (잠시만 기다려주세요)
     </div>
     
     <div class="banner-container">
+        <!-- 더미 광고 (AdSense 로딩 전 표시) -->
+        <div class="test-ad" id="dummy-ad">
+            <h3>🧪 테스트 광고</h3>
+            <p>AdSense 로딩 중...</p>
+            <p>320 x 250</p>
+        </div>
+        
         <!-- Google 공식 테스트 광고 -->
         <ins class="adsbygoogle"
              style="display:block"
@@ -64,19 +70,39 @@
              data-full-width-responsive="true"></ins>
     </div>
     
-    <div class="status">
-        �� 앱에서 "웹뷰 광고" 버튼을 눌러 테스트하세요
+    <div class="status" id="status">
+        ⏳ 광고 로딩 대기 중...
     </div>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-         
-         // 페이지 로딩 완료 시 콘솔에 메시지 출력
-         window.addEventListener('load', function() {
-             console.log('�� TenNinety 광고 페이지 로딩 완료!');
-             console.log('�� 업데이트 시간: 2025년 1월 11일 오후');
-         });
+        // 광고 로딩 상태 확인
+        let adLoaded = false;
+        
+        // AdSense 스크립트 로딩 완료 후
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        
+        // 5초 후 광고 상태 확인
+        setTimeout(function() {
+            const dummyAd = document.getElementById('dummy-ad');
+            const status = document.getElementById('status');
+            
+            if (dummyAd.style.display !== 'none') {
+                // AdSense 광고가 로드되지 않음
+                status.innerHTML = '⚠️ AdSense 광고 로딩 실패<br>네트워크 또는 광고 차단 확인 필요';
+                status.style.background = 'rgba(255,0,0,0.2)';
+            } else {
+                // AdSense 광고가 로드됨
+                status.innerHTML = '✅ AdSense 광고 로딩 성공!';
+                status.style.background = 'rgba(0,255,0,0.2)';
+            }
+        }, 5000);
+        
+        // 페이지 로딩 완료 시
+        window.addEventListener('load', function() {
+            console.log(' 페이지 로딩 완료');
+            console.log(' AdSense 스크립트 로딩 시작');
+        });
     </script>
 </body>
 </html>
