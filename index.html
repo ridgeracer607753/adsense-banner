@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AdSense Test Banner - 완전 테스트</title>
+  <title>TenNinety 실제 AdSense 테스트</title>
   <style>
     body {
       margin: 0;
@@ -20,14 +20,15 @@
       border-radius: 10px;
     }
     .banner-container {
-      width: 320px;
-      height: 250px;
+      width: 100%;
+      max-width: 400px;
       margin: 20px auto;
       background: #f0f0f0;
       border: 2px dashed #ccc;
       border-radius: 10px;
       position: relative;
       overflow: hidden;
+      min-height: 250px;
     }
     .status {
       text-align: center;
@@ -38,50 +39,41 @@
     }
   </style>
 
-  <!-- ✅ 실제 광고용 AdSense 스크립트 -->
-  <!-- ✅ 테스트 광고용 스크립트 (client 파라미터 제거) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- ✅ 실제 AdSense 스크립트 -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590155339932439"
+       crossorigin="anonymous"></script>
 
 </head>
 <body>
   <div class="header">
-    <h1>🎯 TenNinety 앱 광고 테스트</h1>
-    <p>이 페이지는 Google AdSense 광고 연동을 테스트하기 위한 샘플 페이지입니다.</p>
+    <h1>🎯 TenNinety 실제 AdSense 테스트</h1>
+    <p>실제 발급받은 AdSense 광고를 테스트합니다.</p>
   </div>
 
   <div class="status" id="status">
-    🔄 광고 로딩 시도 중...
+    �� 실제 광고 로딩 시도 중...
   </div>
 
   <div class="banner-container">
-    <!-- ✅ Google 테스트 광고 유닛 -->
-    <!-- 테스트용 publisher ID data-ad-client="ca-pub-3940256099942544"  -->
-    <!-- 테스트용 ad slot 1234567890 -->
-  
-
-    <!-- AdSense 테스트용 광고 (300x200) -->
-
-<ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:200px"
-     data-ad-client="ca-pub-3940256099942544"
-     data-ad-slot="8480945254"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
+    <!-- ✅ 실제 AdSense 광고 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-8590155339932439"
+         data-ad-slot="7626753665"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 
   <div class="header" style="margin-top: 30px;">
-    <h2>📢 이 페이지의 목적</h2>
-    <p>
-      본 페이지는 Google AdSense 광고 연동이 정상적으로 작동하는지 확인하기 위해 제작되었습니다.<br />
-      광고 슬롯과 스크립트가 정확히 삽입되었는지 테스트하고, 실제 광고 콘텐츠가 출력되는지 시각적으로 점검할 수 있습니다.
-    </p>
-
-    <h2>✅ 주요 기능</h2>
+    <h2>📊 실제 광고 정보</h2>
     <ul>
-      <li>Google AdSense 광고 슬롯 적용 (320x250)</li>
-      <li>광고 로딩 시각적 확인</li>
+      <li>Publisher ID: ca-pub-8590155339932439</li>
+      <li>Ad Slot: 7626753665</li>
+      <li>광고 타입: 반응형 자동 크기</li>
+      <li>상태: 실제 발급받은 AdSense</li>
     </ul>
 
     <h2>📌 참고 사항</h2>
@@ -92,18 +84,19 @@
   </div>
 
   <script>
-    // 광고 상태 확인
+    // 광고 상태 확인 (실제 광고는 로딩 시간이 더 필요)
     setTimeout(() => {
       const adElement = document.querySelector('.adsbygoogle');
       const status = document.getElementById('status');
+      
       if (adElement && adElement.offsetHeight > 0) {
-        status.innerHTML = '✅ 광고 로드 확인됨';
+        status.innerHTML = '✅ 실제 광고 로드 확인됨';
         status.style.background = 'rgba(0,255,0,0.2)';
       } else {
         status.innerHTML = '❌ 광고 로딩 실패<br>광고 차단기(AdBlock)를 끄고 새로고침해주세요.';
         status.style.background = 'rgba(255,0,0,0.2)';
       }
-    }, 5000);
+    }, 8000); // 실제 광고는 8초 대기
   </script>
 </body>
 </html>
