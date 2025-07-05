@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TenNinety 실제 AdSense 테스트</title>
+  <title>🎯 TenNinety AdSense 테스트 광고 보기</title>
   <style>
     body {
       margin: 0;
@@ -21,14 +21,13 @@
     }
     .banner-container {
       width: 100%;
-      max-width: 400px;
+      max-width: 320px;
       margin: 20px auto;
-      background: #f0f0f0;
+      background: #fff;
       border: 2px dashed #ccc;
       border-radius: 10px;
-      position: relative;
-      overflow: hidden;
-      min-height: 250px;
+      padding: 10px;
+      box-sizing: border-box;
     }
     .status {
       text-align: center;
@@ -39,67 +38,43 @@
     }
   </style>
 
-  <!-- ✅ 실제 AdSense 스크립트 -->
-<!--   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590155339932439"
-       crossorigin="anonymous"></script> -->
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- ✅ 테스트 광고용 스크립트 -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
   <div class="header">
-    <h1>🎯 TenNinety 실제 AdSense 테스트</h1>
-    <p>실제 발급받은 AdSense 광고를 테스트합니다.</p>
+    <h1>🧪 TenNinety 테스트 광고</h1>
+    <p>이 페이지는 Google AdSense 테스트 광고를 로드합니다.</p>
   </div>
 
   <div class="status" id="status">
-    �� 실제 광고 로딩 시도 중...
+    📡 광고 로딩 확인 중...
   </div>
 
   <div class="banner-container">
-    <!-- ✅ 실제 AdSense 광고 -->
-    
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-format="fluid"
-     data-ad-layout="in-article"
-     data-ad-client="ca-pub-0123456789101112"
-     data-ad-slot="9876543210"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
- 
-    
-  </div>
-
-  <div class="header" style="margin-top: 30px;">
-    <h2>📊 실제 광고 정보</h2>
-    <ul>
-      <li>Publisher ID: ca-pub-8590155339932439</li>
-      <li>Ad Slot: 7626753665</li>
-      <li>광고 타입: 반응형 자동 크기</li>
-      <li>상태: 실제 발급받은 AdSense</li>
-    </ul>
-
-    <h2>📌 참고 사항</h2>
-    <p>
-      이 페이지는 광고 테스트 용도로만 사용되며 실제 사용자 서비스로 제공되지 않습니다.<br />
-      실제 광고가 노출될 수도 있으며, <strong>Google 정책에 따라 테스트 클릭은 금지</strong>됩니다.
-    </p>
+    <!-- ✅ 테스트 광고 단위 -->
+    <ins class="adsbygoogle"
+         style="display:block; width:300px; height:250px;"
+         data-ad-client="ca-pub-3940256099942544"
+         data-ad-slot="6300978111"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 
   <script>
-    // 광고 상태 확인 (실제 광고는 로딩 시간이 더 필요)
+    // 광고 로딩 상태 확인
     setTimeout(() => {
       const adElement = document.querySelector('.adsbygoogle');
       const status = document.getElementById('status');
-      
       if (adElement && adElement.offsetHeight > 0) {
-        status.innerHTML = '✅ 실제 광고 로드 확인됨';
+        status.innerHTML = '✅ 테스트 광고 로드 성공!';
         status.style.background = 'rgba(0,255,0,0.2)';
       } else {
-        status.innerHTML = '❌ 광고 로딩 실패<br>광고 차단기(AdBlock)를 끄고 새로고침해주세요.';
+        status.innerHTML = '❌ 광고 로딩 실패<br>AdBlock을 끄고 다시 시도하세요.';
         status.style.background = 'rgba(255,0,0,0.2)';
       }
-    }, 8000); // 실제 광고는 8초 대기
+    }, 6000); // 약간 기다려야 광고 로드됨
   </script>
 </body>
 </html>
